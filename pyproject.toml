@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "aiostipy-cli"
+version = "0.1.0"
+description = "CLI for aiostipy"
+authors = ["Agustin Arce <agustinarceprincich@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "^8.1.7"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+pytest-sugar = "^1.0.0"
+black = "^24.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
