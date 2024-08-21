@@ -43,7 +43,7 @@ def test_create_module(runner: CliRunner):
             content = f.read()
 
         # Define expected content based on the plain module example
-        expected_content = f"""from src.{module_name} import {module_name.title()}Controller, {module_name.title()}Service\nfrom aiostipy.common import Module\nclass {module_name.title()}Module(Module):\n\tcontrollers = [{module_name.title()}Controller]\n\tservices = [{module_name.title()}Service]\n\tpass
+        expected_content = f"""from .{module_name}_controller import {module_name.title()}Controller\nfrom .{module_name}_service import {module_name.title()}Service\nfrom aiostipy.common import Module\n\nclass {module_name.title()}Module(Module):\n\tcontrollers = [{module_name.title()}Controller]\n\tservices = [{module_name.title()}Service]\n\tpass
 """.strip()
         assert content.strip() == expected_content.strip(), (
             f"File content does not match expected content.\n"

@@ -9,9 +9,47 @@ def cli():
     pass
 
 
-@cli.group(name="new")
-def new():
-    pass
+@cli.command()
+@click.argument("project_name")
+def new(project_name: str):
+    """Create a new project directory with a specific structure."""
+
+    try:
+        # Define the folder structure and files to be created
+        folders = [os.path.join(project_name, "src")]
+
+        files = {
+            os.path.join(project_name, "README.md"): f"# {project_name}\n",
+            os.path.join(
+                project_name, "main.py"
+            ): """from src.app_module import AppModule\nfrom aiostipy.core import AppFactory, web\n\ndef bootstrap():\n\tapp = AppFactory.create(AppModule)\n\tweb.run_app(app=app, host="0.0.0.0", port=8000)\nif __name__ == "__main__":\n\tbootstrap()""",
+            os.path.join(project_name, "src", "__init__.py"): "",
+            os.path.join(project_name, "src", "app_module.py"): generate_file_content(
+                "module", "app"
+            ),
+            os.path.join(
+                project_name, "src", "app_controller.py"
+            ): generate_file_content("controller", "app"),
+            os.path.join(project_name, "src", "app_service.py"): generate_file_content(
+                "service", "app"
+            ),
+        }
+
+        # Create the folders
+        for folder in folders:
+            os.makedirs(folder, exist_ok=True)
+            click.echo(f"Created folder: {folder}")
+
+        # Create the files with the generated content
+        for file_path, content in files.items():
+            with open(file_path, "w") as f:
+                f.write(content)
+            click.echo(f"Created file: {file_path}")
+
+        click.echo(f"Project '{project_name}' created successfully!")
+
+    except Exception as e:
+        click.echo(f"An error occurred: {e}")
 
 
 @cli.group(name="generate")
@@ -34,11 +72,11 @@ def generate_file_content(
 ) -> str:
     title_name = name.title()
     if file_type == "controller":
-        return f"""from aiostipy.common import Controller\nclass {title_name}Controller(Controller):\n\tpass"""
+        return f"""from aiostipy.common import Controller\n\nclass {title_name}Controller(Controller):\n\tpass"""
     elif file_type == "service":
-        return f"""from aiostipy.common import Service\nclass {title_name}Service(Service):\n\tpass"""
+        return f"""from aiostipy.common import Service\n\nclass {title_name}Service(Service):\n\tpass"""
     elif file_type == "module":
-        return f"""from src.{name} import {title_name}Controller, {title_name}Service\nfrom aiostipy.common import Module\nclass {title_name}Module(Module):\n\tcontrollers = [{title_name}Controller]\n\tservices = [{title_name}Service]\n\tpass"""
+        return f"""from .{name}_controller import {title_name}Controller\nfrom .{name}_service import {title_name}Service\nfrom aiostipy.common import Module\n\nclass {title_name}Module(Module):\n\tcontrollers = [{title_name}Controller]\n\tservices = [{title_name}Service]\n\tpass"""
     return ""
 
 
@@ -114,7 +152,3 @@ def generate_module(module_name: str):
     file_path = os.path.join(folder_name, file_name)
     content = generate_file_content("module", module_name)
     write_file(file_path, content)
-
-
-if __name__ == "__main__":
-    cli()

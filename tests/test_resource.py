@@ -41,11 +41,11 @@ def test_create_resource(runner: CliRunner):
         f"{resource_name}_module.py",
     ]
     contents = [
-        f"""from aiostipy.common import Controller\nclass {resource_name.title()}Controller(Controller):\n\tpass
+        f"""from aiostipy.common import Controller\n\nclass {resource_name.title()}Controller(Controller):\n\tpass
 """.strip(),
-        f"""from aiostipy.common import Service\nclass {resource_name.title()}Service(Service):\n\tpass
+        f"""from aiostipy.common import Service\n\nclass {resource_name.title()}Service(Service):\n\tpass
 """.strip(),
-        f"""from src.{resource_name} import {resource_name.title()}Controller, {resource_name.title()}Service\nfrom aiostipy.common import Module\nclass {resource_name.title()}Module(Module):\n\tcontrollers = [{resource_name.title()}Controller]\n\tservices = [{resource_name.title()}Service]\n\tpass
+        f"""from .{resource_name}_controller import {resource_name.title()}Controller\nfrom .{resource_name}_service import {resource_name.title()}Service\nfrom aiostipy.common import Module\n\nclass {resource_name.title()}Module(Module):\n\tcontrollers = [{resource_name.title()}Controller]\n\tservices = [{resource_name.title()}Service]\n\tpass
 """.strip(),
     ]
 

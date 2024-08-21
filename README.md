@@ -13,6 +13,27 @@ pip install aiostipy
 
 ## Usage
 
+### New project
+
+```bash
+aiostipy new project_name
+```
+
+Genereates the following:
+
+```bash
+project_name/
+├── src/
+│   ├── __init__.py
+│   ├── app_module.py
+│   ├── app_controller.py
+│   ├── app_service.py
+├── main.py
+└── README.md
+```
+
+To add components you can use the following:
+
 ```bash
 aiostipy generate [controller|service|module|resource] resource_name
 ```
@@ -26,4 +47,4 @@ aiostipy generate [controller|service|module|resource] resource_name
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/aarcex3/aiostipy-cli/LICENSE) file for details.
+This project is licensed under the MIT License. See the LICENSEfile for details.

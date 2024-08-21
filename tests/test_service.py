@@ -41,7 +41,7 @@ def test_create_service(runner: CliRunner):
             content = f.read()
 
         # Define expected content based on the plain service example
-        expected_content = f"""from aiostipy.common import Service\nclass {service_name.title()}Service(Service):\n\tpass"""
+        expected_content = f"""from aiostipy.common import Service\n\nclass {service_name.title()}Service(Service):\n\tpass"""
         assert content.strip() == expected_content.strip(), (
             f"File content does not match expected content.\n"
             f"Expected: '{expected_content}'\n"

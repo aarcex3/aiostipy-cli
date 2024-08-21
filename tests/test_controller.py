@@ -43,7 +43,7 @@ def test_create_controller(runner: CliRunner):
             content = f.read()
 
         # Define expected content based on the plain controller example
-        expected_content = f"""from aiostipy.common import Controller\nclass {controller_name.title()}Controller(Controller):\n\tpass"""
+        expected_content = f"""from aiostipy.common import Controller\n\nclass {controller_name.title()}Controller(Controller):\n\tpass"""
         assert content.strip() == expected_content.strip(), (
             f"File content does not match expected content.\n"
             f"Expected: '{expected_content}'\n"

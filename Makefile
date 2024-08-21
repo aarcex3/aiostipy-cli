@@ -25,3 +25,6 @@ clean:
 test:
 	$(PYTEST) $(TEST_DIR) -vv -s --showlocals
 
+coverage:
+	$(PYTEST) --cov-report html --cov=$(SRC_DIR) $(TEST_DIR)
+
