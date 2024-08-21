@@ -5,7 +5,7 @@ from typing import List
 import pytest
 from click.testing import CliRunner
 
-from src.main import cli
+from aiostipy_cli.main import cli
 
 
 def create_folder_safely(resource_name: str):

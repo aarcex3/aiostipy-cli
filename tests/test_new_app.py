@@ -4,7 +4,9 @@ import shutil
 import pytest
 from click.testing import CliRunner
 
-from src.main import cli  # Ensure this path is correct based on your project structure
+from aiostipy_cli.main import (
+    cli,
+)  # Ensure this path is correct based on your project structure
 
 
 @pytest.fixture

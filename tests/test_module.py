@@ -4,7 +4,7 @@ import shutil
 import pytest
 from click.testing import CliRunner
 
-from src.main import cli
+from aiostipy_cli.main import cli
 
 
 @pytest.fixture
